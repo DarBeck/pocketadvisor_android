@@ -1,0 +1,14 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="edit_text_max_height">100dp</dimen>
+    <dimen name="space10">10dp</dimen>
+    <dimen name="space5">5dp</dimen>
+    <dimen name="button_size">60dp</dimen>
+    <dimen name="normalTextSize">14sp</dimen>
+    <dimen name="padding15">15dp</dimen>
+    <dimen name="space40">40dp</dimen>
+    <dimen name="maxChatWidth">170dp</dimen>
+    <dimen name="timeTextSize">12sp</dimen>
+</resources>

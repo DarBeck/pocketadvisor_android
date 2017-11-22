@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:padding="@dimen/space10" android:layout_marginEnd="@dimen/space40">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="@dimen/space40"
+            android:layout_height="@dimen/space40"
+            android:src="@drawable/user1"
+            android:layout_marginEnd="@dimen/space10"/>
+        <TextView
+            android:id="@+id/tv_chat_text"
+            android:layout_toStartOf="@id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space10"
+            android:text="Hi, how are you?"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/normalTextSize"
+            android:background="@drawable/bg_chat_you"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_marginStart="@dimen/space10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/space5"
+            android:text="5:00pm"
+            android:textColor="@color/infoText"
+            android:textSize="@dimen/timeTextSize"
+            android:layout_centerVertical="true"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

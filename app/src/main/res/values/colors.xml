@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FF0000</color>
+    <color name="colorPrimaryDark">#fa4c4c</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="receiveText">#7dd69d</color>
+    <color name="sentText">#dbe7d5</color>
+    <color name="textColor">#0d0c0c</color>
+    <color name="barColor">#E9EDED</color>
+    <color name="textBlack">#000</color>
+    <color name="hintColor">#918e94</color>
+    <color name="transparent">#00444455</color>
+    <color name="infoText">#9b5c5c</color>
+    <color name="textWhite">#FFF</color>
+    <color name="chatBg">#FFF</color>
 </resources>
