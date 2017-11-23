@@ -43,7 +43,7 @@ class ChatActivity : AppCompatActivity() {
         override fun onMessage(webSocket: WebSocket?, text: String?) {
             super.onMessage(webSocket, text)
 
-            outputMessage("Receiving: $text")
+            outputMessage(text.toString())
             //println("Receiving: $text")
         }
 
@@ -62,7 +62,6 @@ class ChatActivity : AppCompatActivity() {
         fun sendMessage(webSocket: WebSocket?) {
             val jsonObj = JSONObject()
             jsonObj.put("from", "777")
-            jsonObj.put("to", "all")
             jsonObj.put("msg", "This is from Android!")
             println(jsonObj.toString())
             webSocket?.send(jsonObj.toString())
@@ -122,7 +121,7 @@ class ChatActivity : AppCompatActivity() {
             val data = ArrayList<ChatData>()
             val item = ChatData()
             item.setText(message)
-            item.setTime("6:00pm")
+            item.setTime("")
             item.setType("2")
             data.add(item)
             mAdapter.addItem(data)
@@ -153,7 +152,6 @@ class ChatActivity : AppCompatActivity() {
     private fun sendMessage(message: String) {
         val jsonObj = JSONObject()
         jsonObj.put("from", "777")
-        jsonObj.put("to", "all")
         jsonObj.put("msg", message)
         println(jsonObj.toString())
         ws.send(jsonObj.toString())
@@ -179,7 +177,7 @@ class ChatActivity : AppCompatActivity() {
             val data = ArrayList<ChatData>()
             val item = ChatData()
             item.setText(txt)
-            item.setTime("6:00pm")
+            item.setTime("")
             item.setType("1")
             data.add(item)
             mAdapter.addItem(data)
@@ -191,9 +189,13 @@ class ChatActivity : AppCompatActivity() {
     fun setData(): ArrayList<ChatData> {
         val data = ArrayList<ChatData>()
 
-        val text = arrayOf("15 September", "Hi, Julia! How are you?", "Hi, Joe, looks great! :) ", "I'm fine. Wanna go out somewhere?", "Yes! Coffee maybe?", "Great idea! You can come 9:00 pm? :)))", "Ok!", "Ow my good, this Kit is totally awesome", "Can you provide other kit?", "I don't have much time, :`(")
-        val time = arrayOf("", "5:30pm", "5:35pm", "5:36pm", "5:40pm", "5:41pm", "5:42pm", "5:40pm", "5:41pm", "5:42pm")
-        val type = arrayOf("0", "2", "1", "1", "2", "1", "2", "2", "2", "1")
+//        val text = arrayOf("15 September", "Hi, Julia! How are you?", "Hi, Joe, looks great! :) ", "I'm fine. Wanna go out somewhere?", "Yes! Coffee maybe?", "Great idea! You can come 9:00 pm? :)))", "Ok!", "Ow my good, this Kit is totally awesome", "Can you provide other kit?", "I don't have much time, :`(")
+//        val time = arrayOf("", "5:30pm", "5:35pm", "5:36pm", "5:40pm", "5:41pm", "5:42pm", "5:40pm", "5:41pm", "5:42pm")
+//        val type = arrayOf("0", "2", "1", "1", "2", "1", "2", "2", "2", "1")
+
+        val text = arrayOf("Hi, how may I help you today?")
+        val time = arrayOf("")
+        val type = arrayOf("1")
 
         for (i in text.indices) {
             val item = ChatData()
