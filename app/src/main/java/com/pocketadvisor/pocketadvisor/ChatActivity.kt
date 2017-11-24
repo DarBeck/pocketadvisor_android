@@ -2,6 +2,7 @@ package com.pocketadvisor.pocketadvisor
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.KeyEvent
@@ -29,11 +30,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var mAdapter: ConversationRecyclerView
 
     private inner class EchoWebSocketListener : WebSocketListener() {
-        private val NORMAL_CLOSURE_STATUS = 1000
-
-        fun printMsg(txt: String?) {
-            println(txt)
-        }
 
         override fun onOpen(webSocket: WebSocket?, response: Response?) {
             super.onOpen(webSocket, response)
@@ -55,17 +51,12 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onFailure(webSocket: WebSocket?, t: Throwable?, response: Response?) {
             super.onFailure(webSocket, t, response)
-            //chat.outputMessage("Error: ${t?.message}")
             println("Error: ${t?.message}")
-        }
-
-        fun sendMessage(webSocket: WebSocket?) {
-            val jsonObj = JSONObject()
-            jsonObj.put("from", "777")
-            jsonObj.put("msg", "This is from Android!")
-            println(jsonObj.toString())
-            webSocket?.send(jsonObj.toString())
-            webSocket?.send("hi")
+            runOnUiThread {
+                Handler().postDelayed(
+                        { start() },3000
+                )
+            }
 
         }
     }
@@ -96,7 +87,7 @@ class ChatActivity : AppCompatActivity() {
             }, 500)
         }
 
-        editText.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+        editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
             // If the event is a key-down event on the "enter" button
 
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -105,12 +96,37 @@ class ChatActivity : AppCompatActivity() {
                 println(event)
                 println(keyCode)
                 sendText()
-                return@OnKeyListener false
+                return@OnKeyListener true
             }
             true
-
         })
+    }
 
+    override fun onPause() {
+        super.onPause()
+        println("Paused")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("Stopped")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        println("Restarted")
+        //ws.
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("Resumed")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        println("Destroyed")
+        ws.close(1000, "Exited App")
     }
 
     fun sendText(view: View) {
@@ -142,7 +158,6 @@ class ChatActivity : AppCompatActivity() {
             item.setTime("6:00pm")
             item.setType("2")
             data.add(item)
-            println(data)
             mAdapter.addItem(data)
             mRecyclerView.smoothScrollToPosition(mRecyclerView.adapter.itemCount - 1)
             sendMessage(message)
@@ -158,17 +173,12 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    fun recMessage(message: String?) {
-    }
-
     private fun start() {
+        println("Trying to connect to server")
         val request = Request.Builder().addHeader("user", "777").url("wss://androidchatserver.mybluemix.net/").build()
         //request.build()
         val listener = EchoWebSocketListener()
         ws = client.newWebSocket(request, listener)
-
-
-        //client.dispatcher().executorService().shutdown()
     }
 
     fun outputMessage(txt: String) {
@@ -186,7 +196,7 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-    fun setData(): ArrayList<ChatData> {
+    private fun setData(): ArrayList<ChatData> {
         val data = ArrayList<ChatData>()
 
 //        val text = arrayOf("15 September", "Hi, Julia! How are you?", "Hi, Joe, looks great! :) ", "I'm fine. Wanna go out somewhere?", "Yes! Coffee maybe?", "Great idea! You can come 9:00 pm? :)))", "Ok!", "Ow my good, this Kit is totally awesome", "Can you provide other kit?", "I don't have much time, :`(")
